@@ -46,7 +46,7 @@
                                 </div>
                             </div>
 
-                            <div class="card-footer">
+                            <div class="card-footer" id="submitButton">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
@@ -86,9 +86,10 @@
                 success:function(data){
                     console.log(data);
 
-                    if(data.numberOfQuestions == 6)
+                    if(data.numberOfQuestions == 20)
                     {
                         $('#finish_form').show();
+                        $('#submitButton').hide();
                     }
 
                     $('#questions_holder').show();
