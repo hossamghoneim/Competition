@@ -68,7 +68,7 @@ class CompetitionController extends Controller
                 'team_is_selected' => TRUE
             ]);
 
-        return redirect()->route('competition.categories', $chosenTeam->team_id)->withMessage('Competition started');
+        return redirect()->route('competition.categories', $chosenTeam->team_id)->withMessage($chosenTeam->team->name . 'started competition successfully');
     }
 
     public function getCategories(Request $request)
