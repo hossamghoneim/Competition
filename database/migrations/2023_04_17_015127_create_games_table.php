@@ -13,20 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('question_results', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('team_id');
             $table->unsignedBigInteger('question_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
 
-            $table->boolean('team_is_selected')->nullable();
-            $table->boolean('team_is_finished')->default(FALSE);
-            $table->boolean('question_is_selected')->nullable();
-            $table->enum('answer_status', ['correct', 'incorrect'])->nullable();
+            $table->boolean('your_turn')->default(FALSE);
 
-            $table->foreign('question_id')->references('id')->on('questions');
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('question_id')->references('id')->on('questions');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }
@@ -38,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('question_results');
+        Schema::dropIfExists('games');
     }
 };

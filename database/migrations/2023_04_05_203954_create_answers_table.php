@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('description');
 
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
+            $table->unique(["description","question_id"],"description_question");
             $table->timestamps();
         });
     }

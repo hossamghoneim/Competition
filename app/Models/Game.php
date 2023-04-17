@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class QuestionResult extends Model
+class Game extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['question_id', 'team_id', 'category_id', 'team_is_selected', 'team_is_finished', 'question_is_selected', 'answer_status'];
+    protected $fillable = ['question_id', 'team_id', 'category_id', 'your_turn'];
 
     public function category()
     {
@@ -25,4 +25,5 @@ class QuestionResult extends Model
     {
         return $this->belongsTo(Team::class, 'team_id');
     }
+
 }

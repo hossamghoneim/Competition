@@ -21,10 +21,11 @@
 
                         <form method="POST" action="{{ route('competition.answers.select') }}">
                             @csrf
+                            <input type="hidden" name="question_id" value="{{ $question->id }}">
                             <div class="card-body">
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <label for="answer_id">Answers</label>
+                                        <label for="question"><h3>{{$question->description}}?</h3></label>
                                         <select name="answer_id" id="forAnswers" class="form-control">
                                             <option value="" selected disabled>select your answer</option>
                                             @foreach ($question->answers as $answer)

@@ -21,8 +21,8 @@ class Question extends Model
         return $this->hasMany(Answer::class, 'question_id');
     }
 
-    public function questionResults()
+    public function games()
     {
-        return $this->hasMany(QuestionResult::class, 'question_id');
+        return $this->hasMany(Game::class, 'question_id');
     }
 }

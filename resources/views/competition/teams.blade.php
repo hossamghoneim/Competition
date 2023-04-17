@@ -25,12 +25,15 @@
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <label for="team_id">Team</label>
-                                        <select name="team_id" id="forTeams" class="form-control">
-                                            <option value="" selected disabled>select your team</option>
+
+
+                                        <select class="form-control select2" name="teams_ids[]" multiple data-placeholder="Select only 2 teams" style="width: 100%;">
                                             @foreach ($teams as $team)
                                                 <option value="{{ $team->id }}">{{ $team->name }}</option>
                                             @endforeach
                                         </select>
+
+
                                     </div>
                                 </div>
                             </div>

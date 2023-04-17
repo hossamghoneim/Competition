@@ -24,7 +24,7 @@ class QuestionStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => 'required|string',
+            'description' => 'required|string|unique:questions,description',
             'category_id' => 'required|integer|exists:categories,id',
             'type'        => 'required|in:main,spare',
         ];

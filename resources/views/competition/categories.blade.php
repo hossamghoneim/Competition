@@ -86,7 +86,7 @@
                 success:function(data){
                     console.log(data);
 
-                    if(data.numberOfQuestions == 20)
+                    if(data.numberOfQuestions == 6)
                     {
                         $('#finish_form').show();
                         $('#submitButton').hide();
@@ -94,10 +94,17 @@
 
                     $('#questions_holder').show();
                     $('#forQuestions').empty();
-                    $('#forQuestions').append(`<option disabled selected='selected'>select your question</option>`)
+                    if(data.questions.length == 0)
+                    {
+                        $('#forQuestions').append(`<option disabled selected='selected'>Questions for this category have been completed</option>`)
+
+                    }else{
+                        $('#forQuestions').append(`<option disabled selected='selected'>select your question</option>`)
+                    }
+
                     console.log(data.questions.length, data.questions);
-                    data['questions'].forEach(question => {
-                        $('#forQuestions').append(`<option value='${question.id}'> ${question.description} </option>`)
+                    data['questions'].forEach(function (question, index){
+                        $('#forQuestions').append(`<option value='${question.id}'> Question Number ${question.id} </option>`)
                     });
                 }
             })
