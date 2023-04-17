@@ -86,7 +86,7 @@
                 success:function(data){
                     console.log(data);
 
-                    if(data.numberOfQuestions == 6)
+                    if(data.numberOfQuestions == 20)
                     {
                         $('#finish_form').show();
                         $('#submitButton').hide();
