@@ -68,6 +68,18 @@
                 <p>Create questions</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('spare-questions.index') }}" class="nav-link {{ Route::is('spare-questions.index') ? 'active' : route('spare-questions.index') }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>All spare questions</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('spare-questions.create') }}" class="nav-link {{ Route::is('spare-questions.create') ? 'active' : route('spare-questions.create') }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Create spare questions</p>
+            </a>
+        </li>
     </ul>
 </li>
 
@@ -90,6 +102,18 @@
             <a href="{{ route('answers.create') }}" class="nav-link {{ Route::is('answers.create') ? 'active' : route('answers.create') }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Create answers</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('spare-question-answers.index') }}" class="nav-link {{ Route::is('spare-question-answers.index') ? 'active' : route('spare-question-answers.index') }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>All answers of spare questions</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('spare-question-answers.create') }}" class="nav-link {{ Route::is('spare-question-answers.create') ? 'active' : route('spare-question-answers.create') }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Create answers of spare questions</p>
             </a>
         </li>
     </ul>

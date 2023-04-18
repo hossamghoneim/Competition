@@ -6,6 +6,8 @@ use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Game;
 use App\Models\Question;
+use App\Models\SpareQuestion;
+use App\Models\SpareQuestionAnswer;
 use App\Models\Team;
 use Illuminate\Http\Request;
 
@@ -163,13 +165,75 @@ class CompetitionController extends Controller
         foreach ($games as $game)
         {
             $winnerTeam = $game->team->selectWinnerTeam($game->team_id, $game->team->score);
+
             if($winnerTeam)
             {
                 return view('competition.show-the-winner', compact('winnerTeam'));
+            }else{
+                return redirect()->route('competition.draw')->withErrors('Draw between the 2 teams');
             }
         }
 
         return redirect()->route('competition.teams')->withErrors('Draw between the 2 teams');
+    }
+
+    public function getSpareQuestions()
+    {
+        $teams = Team::whereNotNull('score')->get();
+        $question = SpareQuestion::query()->with('spareQuestionAnswers')->whereDoesntHave('games')->first();
+
+        return view('competition.draw', compact('teams', 'question'));
+    }
+
+    public function answerSpareQuestions(Request $request)
+    {
+        $gamesCount = Game::query()->whereNotNull('spare_question_id')->count();
+
+        if ($gamesCount == 5)
+        {
+            $games = Game::with('team')->whereNull('spare_question_id')->get();
+
+            foreach ($games as $game)
+            {
+                $winnerTeam = $game->team->selectWinnerTeam($game->team_id, $game->team->score);
+
+                if($winnerTeam)
+                {
+                    return view('competition.show-the-winner', compact('winnerTeam'));
+                }else{
+                    return view('competition.draw-again');
+                }
+            }
+        }
+
+        if(!$request->answer_id)
+        {
+            return redirect()->route('competition.draw')->withErrors('You must select an answer');
+        }
+
+        if(!$request->team_id)
+        {
+            return redirect()->route('competition.draw')->withErrors('You must select the team that had been answered');
+        }
+
+        $team = Team::find($request->team_id);
+        $answer = SpareQuestionAnswer::find($request->answer_id);
+
+        Game::create([
+            'team_id' => $request->team_id,
+            'spare_question_id' => $request->question_id,
+        ]);
+
+        if($answer->is_correct)
+        {
+            $team->update([
+                'score' => $team->score + 1
+            ]);
+
+            return redirect()->route('competition.draw')->withMessage($team->name . ' Answered correctly');
+        }
+
+        return redirect()->route('competition.draw')->withErrors($team->name . ' Answered incorrectly');
     }
 
     public function getQuestionsOfCategoriesAjax(Request $request)

@@ -3,6 +3,8 @@
 use App\Http\Controllers\Dashboard\AnswerController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\QuestionController;
+use App\Http\Controllers\Dashboard\SpareQuestionAnswerController;
+use App\Http\Controllers\Dashboard\SpareQuestionController;
 use App\Http\Controllers\Dashboard\TeamController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +23,9 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('da
 Route::resource('teams', TeamController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('questions', QuestionController::class);
+Route::resource('spare-questions', SpareQuestionController::class);
 Route::resource('answers', AnswerController::class);
+Route::resource('spare-question-answers', SpareQuestionAnswerController::class);
 
 Route::get('competition', '\App\Http\Controllers\CompetitionController@competitionMainPage')->name('competition');
 Route::get('competition/start', '\App\Http\Controllers\CompetitionController@startCompetition')->name('competition.start');
@@ -32,4 +36,6 @@ Route::post('competition/categories/select', '\App\Http\Controllers\CompetitionC
 Route::get('competition/questions/{question}', '\App\Http\Controllers\CompetitionController@getAnswers')->name('competition.question');
 Route::post('competition/answers/select', '\App\Http\Controllers\CompetitionController@selectAnswers')->name('competition.answers.select');
 Route::post('competition/team/finish', '\App\Http\Controllers\CompetitionController@finish')->name('competition.team.finish');
+Route::get('competition/draw', '\App\Http\Controllers\CompetitionController@getSpareQuestions')->name('competition.draw');
+Route::post('competition/answer/spare-questions', '\App\Http\Controllers\CompetitionController@answerSpareQuestions')->name('competition.answer.spare-questions');
 Route::get('category-questions', '\App\Http\Controllers\CompetitionController@getQuestionsOfCategoriesAjax');

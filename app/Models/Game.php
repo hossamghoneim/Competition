@@ -9,7 +9,7 @@ class Game extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['question_id', 'team_id', 'category_id', 'your_turn'];
+    protected $fillable = ['question_id', 'spare_question_id', 'team_id', 'category_id', 'your_turn'];
 
     public function category()
     {
@@ -19,6 +19,11 @@ class Game extends Model
     public function question()
     {
         return $this->belongsTo(Question::class, 'question_id');
+    }
+
+    public function spareQuestion()
+    {
+        return $this->belongsTo(SpareQuestion::class, 'spare_question_id');
     }
 
     public function team()

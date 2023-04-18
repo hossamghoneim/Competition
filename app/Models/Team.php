@@ -15,11 +15,15 @@ class Team extends Model
     {
         $team = Team::whereNotNull('score')->where('id', '!=', $teamID)->first();
 
+        if($team->score == $teamScore)
+        {
+            return FALSE;
+        }
+
         if($team->score > $teamScore)
         {
             return $team;
         }
-
 
         return Team::where('id', $teamID)->first();
     }
